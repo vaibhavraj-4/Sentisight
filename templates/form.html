@@ -1,0 +1,25 @@
+{% extends 'index.html' %} {% block content %}
+<form class="space-y-4" method="post" action="{{ url_for('analyse') }}">
+  <div>
+    <label for="rawtext" class="sr-only"> Enter text </label>
+    <textarea id="rawtext" name="rawtext" rows="3"
+      class="block w-full rounded-md border-2 border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-indigo-500 sm:text-sm p-3"
+      placeholder="Enter text to analyze..."></textarea>
+  </div>
+  <button
+    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-blue-600 text-white hover:bg-primary/90 h-10 px-4 py-2 w-full"
+    type="submit">
+    Analyze Sentiment
+  </button>
+</form>
+{% endblock %}
+
+{% block script %}
+<script>
+  document.addEventListener("load", () => {
+    rawText = document.querySelector('#rawtext');
+    rawText.value = "";
+  }
+  )
+</script>
+{% endblock %}

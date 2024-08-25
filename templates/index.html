@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SENTISIGHT Sentiment Analysis website</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #sentiment_score {
+      --blob_sentiment: 0;
+      width: var(--blob_sentiment);
+      transition: width 500ms ease-in-out;
+      container-type: inline-size;
+      container-name: sentimen-score;
+    }
+
+    .loader {
+      width: 50px;
+      aspect-ratio: 1;
+      margin: auto;
+      display: grid;
+      border: 4px solid #0000;
+      border-radius: 50%;
+      border-right-color: #25b09b;
+      animation: l15 1s infinite linear;
+    }
+
+    .loader::before,
+    .loader::after {
+      content: "";
+      grid-area: 1/1;
+      margin: 2px;
+      border: inherit;
+      border-radius: 50%;
+      animation: l15 2s infinite;
+    }
+
+    .loader::after {
+      margin: 8px;
+      animation-duration: 3s;
+    }
+
+    @keyframes l15 {
+      to {
+        transform: rotate(1turn)
+      }
+    }
+
+    #info-pane {
+      transition: right 300ms linear;
+    }
+  </style>
+</head>
+
+<body class="relative bg-gray-100 dark:bg-gray-900">
+  <div class="relative flex flex-col">
+    {% include 'header.html' %}
+    <div class="flex flex-col items-center justify-center px-4 py-8">
+      <div class="max-w-md w-full space-y-6">
+        <div>
+          <h1 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+            Sentiment Analysis
+          </h1>
+          <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+            Analyze the basic sentiment of your text
+          </p>
+        </div>
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+    <div id="info-pane"
+      class="bg-gray lg:w-1/3 sm:w-3/4 dark:bg-gray-500 bg-opacity-20 border-2 rounded-l-3xl border-gray-300 fixed top-24 right-[-500px] bottom-2">
+      {% include "info.html" %}
+    </div>
+  </div>
+  {% block script %}
+  {% endblock %}
+  <script>
+    infoPane = document.getElementById("info-pane")
+    displaying = false;
+    function showPane() {
+      if (displaying) {
+        infoPane.classList.remove("right-0");
+        infoPane.classList.add("right[-500px]");
+        displaying = false;
+      } else {
+        infoPane.classList.add("right-0");
+        infoPane.classList.remove("right[-500px]");
+        displaying = true;
+      }
+    }
+  </script>
+</body>
+
+</html>
